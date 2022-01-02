@@ -28,7 +28,7 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: "Host(`kanban_django_backend.com`) || Host(`www.kanban_django_backend.com`)"
+      rule: "Host(`kanbandjangobackend.com`) || Host(`www.kanbandjangobackend.com`)"
       entryPoints:
         - web-secure
       middlewares:

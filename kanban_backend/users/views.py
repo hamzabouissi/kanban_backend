@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework import viewsets
-from rest_framework.decorators import action
+from rest_framework.decorators import action, permission_classes
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
@@ -27,10 +27,10 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         return self.serializers_class.get(self.action,SerializerNone)
 
-    def get_queryset(self, *args, **kwargs):
-        return self.queryset.filter(id=self.request.user.id)
+    # def get_queryset(self, *args, **kwargs):
+    #     return self.queryset.filter(id=self.request.user.id)
 
-    @action(detail=False, methods=["GET"])
+    @action(detail=False, methods=["GET"],permission_classes=(permissions.IsAuthenticated,))
     def me(self, request):
         serializer = self.get_serializer(request.user, context={"request": request})
         return Response(status=status.HTTP_200_OK, data=serializer.data)
