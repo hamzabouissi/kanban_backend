@@ -16,10 +16,10 @@ class ProjectInnerDeveloperSerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializerIn(serializers.ModelSerializer):
-
+    scrum_master = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = Project
-        fields = ('id', 'owner', 'scrum_master','date_start', 'date_end')
+        fields = ('id','title','description', 'owner', 'scrum_master','date_start', 'date_end')
 
 
 
@@ -29,7 +29,7 @@ class ProjectSerializerOut(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'owner', 'scrum_master', 'developers', 'date_start', 'date_end')
+        fields = ('id','title','description', 'owner', 'scrum_master', 'developers', 'date_start', 'date_end')
 
 
 
@@ -37,4 +37,4 @@ class ProjectSerializerUpdate(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('owner', 'scrum_master', 'date_start', 'date_end')
+        fields = ('title','description','owner', 'scrum_master', 'date_start', 'date_end')

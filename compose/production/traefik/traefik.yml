@@ -34,9 +34,9 @@ http:
       middlewares:
         - csrf
       service: django
-      tls:
-        # https://docs.traefik.io/master/routing/routers/#certresolver
-        certResolver: letsencrypt
+      # tls:
+      #   # https://docs.traefik.io/master/routing/routers/#certresolver
+      #   certResolver: letsencrypt
 
   middlewares:
     csrf:

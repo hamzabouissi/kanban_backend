@@ -29,7 +29,7 @@ class TaskSerializerOut(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = ('id','title', 'description', 'dev', 'sprint', 'status', 'date_start', 'date_end')
+        fields = ('id','title', 'description', 'dev','sprint', 'status', 'date_start', 'date_end')
 
 
 
@@ -37,4 +37,14 @@ class TaskSerializerUpdate(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = ('id','title', 'description', 'dev', 'sprint', 'status', 'date_start', 'date_end')
+        fields = ('id','title', 'description', 'sprint', 'status', 'date_start', 'date_end')
+
+
+
+
+
+class TaskSerializerUpdateDev(serializers.ModelSerializer):
+
+    class Meta:
+        model = Task
+        fields = ('id', 'dev')

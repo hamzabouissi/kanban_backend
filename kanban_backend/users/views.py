@@ -8,7 +8,7 @@ from rest_framework.viewsets import GenericViewSet
 
 from kanban_backend.base.BaseSerializers import SerializerNone
 
-from .serializers import  UserSerializerIn, UserSerializerOut, UserSerializerUpdate
+from .serializers import  UserSerializerIn, UserSerializerOut, UserSerializerUpdate, UserWithTaskSerializerList
 
 User = get_user_model()
 
@@ -18,7 +18,10 @@ class UserViewSet(viewsets.ModelViewSet):
         "list": UserSerializerOut,
         "retrieve": UserSerializerOut,
         "create": UserSerializerIn,
-        "update": UserSerializerUpdate
+        "update": UserSerializerUpdate,
+        "partial_update":UserSerializerUpdate,
+        "my_tasks": UserWithTaskSerializerList,
+        "me":UserSerializerOut
     }
     queryset = User.objects.all()
     lookup_field = "username"
@@ -34,5 +37,11 @@ class UserViewSet(viewsets.ModelViewSet):
     def me(self, request):
         serializer = self.get_serializer(request.user, context={"request": request})
         return Response(status=status.HTTP_200_OK, data=serializer.data)
+
+    @action(detail=False, methods=["GET"],permission_classes=(permissions.IsAuthenticated,))
+    def my_tasks(self, request):
+        serializer = self.get_serializer(request.user, context={"request": request})
+        return Response(status=status.HTTP_200_OK, data=serializer.data)
+    
 
    

@@ -20,14 +20,14 @@ class User(AbstractUser):
     last_name = None  # type: ignore
     user_type = models.CharField(max_length=25, choices=UserType.choices,default=UserType.Developer)
 
-    def get_absolute_url(self):
-        """Get url for user's detail view.
+    # def get_absolute_url(self):
+    #     """Get url for user's detail view.
 
-        Returns:
-            str: URL for user detail.
+    #     Returns:
+    #         str: URL for user detail.
 
-        """
-        return reverse("users:detail", kwargs={"username": self.username})
+    #     """
+    #     return reverse("users-detail", kwargs={"username": self.username})
 
     
     def save(self, *args, **kwargs) -> None:
@@ -60,6 +60,7 @@ class ProjectOwner(models.Model):
         related_name="+",
         limit_choices_to={"user_type": UserType.ProjectOwner},
     )
+    company = models.CharField(max_length=50,default="", blank=True)
 
 
 class ScrumMaster(models.Model):
@@ -74,7 +75,6 @@ class ScrumMaster(models.Model):
 
 
 class Developer(models.Model):
-    pass
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,

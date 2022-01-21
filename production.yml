@@ -35,8 +35,6 @@ services:
       context: .
       dockerfile: ./compose/production/traefik/Dockerfile
     image: kanban_backend_production_traefik
-    depends_on:
-      - django
     volumes:
       - production_traefik:/etc/traefik/acme:z
     ports:
