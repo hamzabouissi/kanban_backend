@@ -1,0 +1,22 @@
+apiVersion: v1
+data:
+  DJANGO_ACCOUNT_ALLOW_REGISTRATION: "True"
+  DJANGO_ADMIN_URL: bTG1AKCuKgYaVMqLLGImdu4ndn4QtIji/
+  DJANGO_ALLOWED_HOSTS: .kanbandjangobackend.com
+  DJANGO_AWS_ACCESS_KEY_ID: AKIASU7DY4ULXJSN7QHM
+  DJANGO_AWS_SECRET_ACCESS_KEY: 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
+  DJANGO_AWS_STORAGE_BUCKET_NAME: kanbandjangobackend
+  DJANGO_SECRET_KEY: 7iI3q9Z68S8R3fVwOnlIkfsi8ida05AhYLuPatD4b5Ytw2TJYTNN6ECh6ZpE9cmo
+  DJANGO_SECURE_SSL_REDIRECT: "False"
+  DJANGO_SERVER_EMAIL: ""
+  DJANGO_SETTINGS_MODULE: config.settings.production
+  MAILGUN_API_KEY: ""
+  MAILGUN_DOMAIN: ""
+  REDIS_URL: redis://redis:6379/0
+  WEB_CONCURRENCY: "4"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: awscli-envs--production--django
+  name: envs--production--django

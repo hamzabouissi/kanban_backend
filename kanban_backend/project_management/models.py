@@ -25,7 +25,6 @@ class SprintStatus(models.TextChoices):
 
 User = get_user_model()
 
-<Ff
 class Project(models.Model):
 
     owner = models.ForeignKey(

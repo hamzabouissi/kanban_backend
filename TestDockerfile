@@ -1,0 +1,45 @@
+# Dockerfile
+## Build venv
+FROM python:3.10 AS venv
+
+RUN pip install poetry
+
+WORKDIR /app
+COPY pyproject.toml poetry.lock ./
+
+# The `--copies` option tells `venv` to copy libs and binaries
+# instead of using links (which could break since we will
+# extract the virtualenv from this image)
+RUN python -m venv  /app/venv
+RUN chmod -R 777 /app
+RUN poetry config virtualenvs.path /app/venv
+RUN /app/venv/bin/activate && poetry install --no-root --no-dev
+
+
+## Beginning of runtime image
+# Remember to use the same python version
+# and the same base distro as the venv image
+FROM python:3.10-slim-buster as prod
+ENV CONFIG=$CONFIG
+ENV PYTHONPATH="${PYTHONPATH}:/app/src/"
+
+RUN apt-get update \
+    && apt-get upgrade -y \ 
+    && apt-get -y install libpq-dev gcc \
+    && pip install psycopg2
+
+
+COPY --from=venv /app/venv /app/venv/
+
+WORKDIR /app
+
+COPY . /app/
+
+COPY dockerfiles/api/docker-entrypoint.sh /app/docker-entrypoint.sh
+RUN chmod +x ./docker-entrypoint.sh
+
+
+
+ENTRYPOINT ["./docker-entrypoint.sh"]
+
+CMD ["sh"]
